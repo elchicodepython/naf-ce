@@ -1,13 +1,22 @@
 # NAF - CE
 
-### Release 0.1
+### Release Alfa-0.1
 
 ## Not Another Firewall
 
 NAF-CE is a solution for adding or deleting iptables rules in order to allow or deny hosts based on DNS resolution.
-NAF-CE is not a firewall and does'nt replace one. Is a custom solution for small teams of developers that wants to collaborate on a dedicated server without exposing it to everyone and without complex configurations.
+NAF-CE is not a firewall and doesn't replace one. Its a custom solution for small teams of developers that wants to collaborate on a dedicated server without exposing it to everyone and without having to deal with complex configurations.
 
 NAF-CE check the domain resolution for each domain and add or delete the defined "allow_rule" rule replacing the {ip} keyword with the resolution of the domain name
+
+It should be use with a dynamic DNS provider such as DuckDNS.
+
+Steps after installation:
+* Set a dynamic DNS for a domain name in a third party platform
+* Set that domain in NAF-CE configuration
+* NAF will update the IPTables defined rule (by default accepting the ip of that domain inside de INPUT chain) each time the domain resolution change.
+* If everything is correct set a default drop policy inside iptables for incomming packets.
+* NAF-CE will act as a whitelist allowing only (by default) the IPs resolved by the dynamic DNS provider to the domain names specified in configuration.
 
 ## Requirements
 python3
@@ -40,7 +49,7 @@ Example of configuration file:
 
 * Open /etc/naf/rules.json
 * Add inside domains:[] a domain with the following structure: {"name": "mydomain.com", ip:""}
-* It does'nt matter if we leave the IP empty at the moment
+* It doesn't matter if we leave the IP empty at the moment
 * Save the file
 
 ## Manual updating rules
