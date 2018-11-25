@@ -31,7 +31,7 @@ Example of configuration file:
 	"domains": [
 		{
 		"name": "domain.com",
-		"ip": "8.8.8.8",
+		"ip": "8.8.8.8"
 		}
 	]
 }

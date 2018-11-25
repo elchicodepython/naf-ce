@@ -14,7 +14,7 @@ Rules is a python dictionary with the following structure:
 	"domains": [
 		{
 		"name": "domain.com",
-		"ip": "8.8.8.8",
+		"ip": "8.8.8.8"
 		}
 	]
 }
@@ -111,7 +111,7 @@ Example of configuration file:
 	"domains": [
 		{
 		"name": "domain.com",
-		"ip": "8.8.8.8",
+		"ip": "8.8.8.8"
 		}
 	]
 }\033[0m
