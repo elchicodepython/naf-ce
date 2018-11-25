@@ -1,0 +1,1 @@
+{"domains": [], "allow_rule": "-A INPUT -s {ip}/32 -j ACCEPT"}
