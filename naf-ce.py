@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import socket, json, subprocess, os.path, sys
+from functools import wraps
 
 
 RULES_FILE = '/etc/naf/rules.json'
@@ -101,6 +102,75 @@ def check_domains():
 	save_rules(rules)
 
 
+
+
+def edit_rules():
+	action = ''
+
+	print('''Choose an option
+1) Add a domain
+2) Delete a domain
+3) List configuration
+4) Update rules
+x) Exit''')
+
+	while action != 'x':
+		action = input('> ')
+		if action == '1':
+			edit_rules_add_domain()
+		elif action == '2':
+			edit_rules_delete_domain()
+		elif action == '3':
+			list_rules()
+		elif action == '4':
+			check_domains()
+		elif action == 'x':
+			return
+
+def rules_context(f):
+	@wraps(f)
+	def foo(*args, **kwargs):
+		rules = get_rules()
+		o = f(rules, *args, **kwargs)
+		save_rules(rules)
+		return o
+	return foo
+
+@rules_context
+def edit_rules_add_domain(rules):
+	dom = input('[\033[1;32ma\033[0m] Domain: ')
+	rules['domains'].append({'name': dom, 'ip': ''})
+
+
+@rules_context
+def edit_rules_delete_domain(rules):
+	founded = False
+	dom = input('[\033[1;31md\033[0m] Domain: ')
+	for idx, domain in enumerate(rules['domains']):
+		if domain['name'] == dom:
+			founded = True
+			break
+	if founded:
+		print('[200] Deleted')
+		del rules['domains'][idx]
+	else:
+		print('[404] Not Found')
+
+def list_rules():
+	rules = get_rules()
+	print('\033[1;32mALLOW RULE: %s\033[0m' % rules.get('allow_rule', DEFAULT_ALLOW_RULE))
+	print('Domains:')
+	if rules['domains']:
+		for domain in rules['domains']:
+			
+			print(domain['name'].ljust(50) + (domain['ip'] or '[\033[1;31m404\033[0m] Run update to save'))
+	else:
+		print('There are no domains registered yet')
+
+
+
+
+
 def print_help():
 	print('''NAF-CE is based on a configuration file placed on /etc/naf/rules.json
 
@@ -124,6 +194,10 @@ if __name__ == '__main__':
 	if len(sys.argv) == 2:
 		if sys.argv[1] == 'update':
 			check_domains()
+		elif sys.argv[1] == 'edit':
+			edit_rules()
+		elif sys.argv[1] == 'list':
+			list_rules()
 		else:
 			print_help()
 	else:
