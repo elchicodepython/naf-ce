@@ -44,14 +44,14 @@ def issafe(rule):
 	return True
 
 def list_iptables():
-	data = subprocess.check_output('iptables -S', shell=True).decode()
+	data = subprocess.check_output('/sbin/iptables -S', shell=True).decode()
 	return data.split('\n')
 
 def delete_iptables_rule(rule):
-	subprocess.check_output('iptables -D %s' % rule.replace('-A', ''), shell=True)
+	subprocess.check_output('/sbin/iptables -D %s' % rule.replace('-A', ''), shell=True)
 
 def add_iptables_rule(rule):
-	subprocess.check_output('iptables %s' % rule, shell=True)
+	subprocess.check_output('/sbin/iptables %s' % rule, shell=True)
 
 def get_rules():
 	with open(RULES_FILE, 'r') as file:
