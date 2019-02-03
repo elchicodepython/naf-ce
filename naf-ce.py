@@ -168,23 +168,10 @@ def list_rules():
 		print('There are no domains registered yet')
 
 
-
-
-
 def print_help():
 	print('''NAF-CE is based on a configuration file placed on /etc/naf/rules.json
 
-Example of configuration file:
-
-\033[1;32m{
-	"allow_rule": "-A INPUT -s {ip} ACCEPT",
-	"domains": [
-		{
-		"name": "domain.com",
-		"ip": "8.8.8.8"
-		}
-	]
-}\033[0m
+\033[1;32mnaf-ce [update|edit|list]\033[0m
 
 NAF-CE check the domain resolution for each domain and add or delete the defined "allow_rule" rule replacing the {ip} keyword with the resolution of the domain name
 
