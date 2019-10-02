@@ -43,6 +43,17 @@ def issafe(rule):
 		return False
 	return True
 
+def just_boot():
+	try:
+		with open('/tmp/naf-ce', 'r'):
+			return False
+	except IOError:
+		return True
+
+def initialize():
+	with open('/tmp/naf-ce', 'w') as f:
+		f.write('# Delete me if restart')
+
 def list_iptables():
 	data = subprocess.check_output('/sbin/iptables -S', shell=True).decode()
 	return data.split('\n')
@@ -85,8 +96,10 @@ def check_domains():
 				print('IP FOUND %s' % real_ip)
 				rule_ip_data = allow_rule.format(ip = ip_data)
 				rule_real_ip = allow_rule.format(ip = real_ip)
+				first_check = just_boot()
+				initialize()
 
-				if (rule_ip_data != rule_real_ip):
+				if (rule_ip_data != rule_real_ip) or first_check:
 					print('IP saved [%s] != real ip [%s]' % (ip_data, real_ip))
 					if rule_ip_data in current_iptables:
 						delete_iptables_rule(rule_ip_data)
