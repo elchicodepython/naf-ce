@@ -19,10 +19,12 @@ Steps after installation:
 * NAF-CE will act as a whitelist allowing only (by default) the IPs resolved by the dynamic DNS provider to the domain names specified in configuration.
 
 ## Requirements
-python3
-iptables
+- python3
+- iptables
 
-Tested on Ubuntu 18.04
+### Tested on
+- Ubuntu 18.04
+- Proxmox PVE 5
 
 ## Installation
 * git clone https://github.com/elchicodepython/naf-ce
