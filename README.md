@@ -1,6 +1,6 @@
 # NAF - CE
 
-### Release Alfa-0.1
+
 
 ## Not Another Firewall
 
@@ -31,6 +31,12 @@ Tested on Ubuntu 18.04
 * sudo crontab -u root -e 
 * Add the following line to crontab: 5 * * * * /usr/bin/naf-ce update
 
+### Interactive configuration
+
+TODO: To be completed
+
+## Manual Configuration
+
 NAF-CE is based on a configuration file placed on /etc/naf/rules.json
 
 Example of configuration file:
@@ -45,14 +51,14 @@ Example of configuration file:
 	]
 }
 
-## Add a domain
+### Add a domain
 
 * Open /etc/naf/rules.json
 * Add inside domains:[] a domain with the following structure: {"name": "mydomain.com", ip:""}
 * It doesn't matter if we leave the IP empty at the moment
 * Save the file
 
-## Manual updating rules
+### Manual updating rules
 * sudo naf-ce update
 
 
