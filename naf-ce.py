@@ -8,20 +8,15 @@ DEFAULT_ALLOW_RULE = "-P INPUT -s {ip}/32 ACCEPT"
 
 
 """
-Rules is a python dictionary with the following structure:
-
-{
-	"allow_rule": "-P INPUT -src {ip} ACCEPT",
-	"domains": [
-		{
-		"name": "domain.com",
-		"ip": "8.8.8.8"
-		}
-	]
-}
-
-Copyright Samuel López Saura 2018
-Linkedin https://www.linkedin.com/in/sam-sec
+/*
+ * ----------------------------------------------------------------------------
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * <samuellopezsaura@gmail.com> wrote this file.
+ * As long as you retain this notice you can do whatever you want with this
+ * stuff. If we meet some day, and you think this stuff is worth it, you can
+ * buy me a beer in return. Samuel López Saura
+ * ----------------------------------------------------------------------------
+ */
 """
 
 print(
