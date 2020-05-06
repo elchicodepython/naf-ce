@@ -1,4 +1,4 @@
-# NAF - CE
+![NAF Logo](docs/NAF.png)
 
 ## Not Another Firewall
 
