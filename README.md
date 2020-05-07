@@ -40,6 +40,7 @@ Finally NAF-CE will follow the next workflow diagram for each response maintaini
 ### Tested on
 - Ubuntu 18.04
 - Proxmox PVE 5
+- Debian 10
 
 ## Installation
 * git clone https://github.com/elchicodepython/naf-ce
