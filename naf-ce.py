@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import logging
 import socket, json, subprocess, os.path, sys
 from functools import wraps
 
@@ -6,6 +7,15 @@ from functools import wraps
 RULES_FILE = "/etc/naf/rules.json"
 DEFAULT_ALLOW_RULE = "-P INPUT -s {ip}/32 ACCEPT"
 
+logger = logging.getLogger("naf-ce")
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh = logging.FileHandler("/var/log/naf_ce.log")
+fh.setFormatter(formatter)
+sh = logging.StreamHandler()
+logger.addHandler(fh)
+logger.addHandler(sh)
+logger.setLevel(logging.INFO)
 
 """
 /*
@@ -64,10 +74,12 @@ def delete_iptables_rule(rule):
     subprocess.check_output(
         "/sbin/iptables -D %s" % rule.replace("-A", ""), shell=True
     )
+    logger.info("Rule [{}] deleted".format(rule))
 
 
 def add_iptables_rule(rule):
     subprocess.check_output("/sbin/iptables %s" % rule, shell=True)
+    logger.info("Rule [{}] added".format(rule))
 
 
 def get_rules():
@@ -97,7 +109,7 @@ def check_domains():
             try:
                 real_ip = socket.gethostbyname(domain_name)
             except socket.gaierror:
-                print("Error on name resolution for %s" % domain_name)
+                logger.error("Error on name resolution for %s" % domain_name)
                 continue
 
             if issafe(real_ip):
@@ -108,15 +120,16 @@ def check_domains():
                 initialize()
 
                 if (rule_ip_data != rule_real_ip) or first_check:
-                    print(
-                        "IP saved [%s] != real ip [%s]" % (ip_data, real_ip)
+                    logger.info(
+                        "%s IP saved [%s] != real IP [%s]"
+                        % (domain_name, ip_data, real_ip)
                     )
                     if rule_ip_data in current_iptables:
                         delete_iptables_rule(rule_ip_data)
-                        print("[%s] Deleted from iptables" % ip_data)
+
                     if rule_real_ip not in current_iptables:
                         add_iptables_rule(rule_real_ip)
-                        print("[%s] Added to iptables" % real_ip)
+
                 else:
                     print("Without changes")
 
