@@ -47,11 +47,11 @@ Finally NAF-CE will follow the next workflow diagram for each response maintaini
 * cd naf-ce
 * sudo ./setup.sh
 * sudo crontab -u root -e 
-* Add the following line to crontab: 5 * * * * /usr/bin/naf-ce update
+* Add the following line to crontab: `*/5 * * * * /usr/bin/naf-ce update`
 
 ### Interactive configuration
 
-TODO: To be completed
+To access to the interactive configuration execute `/usr/bin/naf-ce edit`
 
 ## Manual Configuration
 
