@@ -15,5 +15,5 @@ Choose a configuration file inside of iptables/ folder or create one customized.
 
 echo "Setup Done. Please add the following line to the crontab of a user with priviledges: 
 
-5 * * * * /usr/bin/naf-ce update
+*/5 * * * * /usr/bin/naf-ce update
 "
