@@ -5,9 +5,18 @@
 NAF-CE is a solution for adding or deleting iptables rules in order to allow or deny hosts based on DNS resolution.
 NAF-CE is not a firewall and doesn't replace one. Its a custom solution for small teams of developers that wants to collaborate on a dedicated server without exposing it to everyone and without having to deal with complex configurations.
 
+
 NAF-CE check the domain resolution for each domain and add or delete the defined "allow_rule" rule replacing the {ip} keyword with the resolution of the domain name
 
 It should be use with a dynamic DNS provider such as DuckDNS. If you use DuckDNS please consider donating to their project.
+
+
+## Why did I build this software?
+
+We were a group of friends connecting to a remote server that we didn't want to expose to the whole internet.
+We didn't want to deal with setting up a vpn as we only had one server at our provider and it seemed like overkill.
+Portknocking was tedious at times, especially for persistent connections. Whitelisting our IPs was an option but since
+these could change we needed this to be dynamic.
 
 ## How it works?
 
